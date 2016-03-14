@@ -4,8 +4,10 @@ from __future__ import print_function
 from __future__ import unicode_literals
 
 import random
+import collections
 
 def general_kiyoshi( phrase_pattern, last_phrase ):
+  phrase_pattern = collections.deque( phrase_pattern )
   phrase_pattern_number = len( phrase_pattern )
   phrase_dict = dict( zip( phrase_pattern, [ 0 ] * phrase_pattern_number ) )
   phrases = phrase_dict.keys()
@@ -17,13 +19,12 @@ def general_kiyoshi( phrase_pattern, last_phrase ):
   def check_phrase_pattern( current_phrase_pattern ):
     return ( current_phrase_pattern == phrase_pattern )
   
-  current_phrase_pattern = [ None ] * phrase_pattern_number
+  current_phrase_pattern = collections.deque( [], phrase_pattern_number )
   
   for phrase in random_phrase_generator():
     print( phrase )
     #phrase_dict[ phrase ] += 1
     
-    current_phrase_pattern.pop( 0 )
     current_phrase_pattern.append( phrase )
     
     if check_phrase_pattern( current_phrase_pattern ):
