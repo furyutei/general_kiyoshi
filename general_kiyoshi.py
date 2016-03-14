@@ -3,7 +3,6 @@
 from __future__ import print_function
 from __future__ import unicode_literals
 
-import sys
 import random
 
 def general_kiyoshi( phrase_pattern, last_phrase ):
@@ -13,13 +12,10 @@ def general_kiyoshi( phrase_pattern, last_phrase ):
   
   def random_phrase_generator():
     while True:
-      yield phrases[ random.randint( 0, len( phrases ) - 1 ) ]
+      yield random.choice( phrases )
   
   def check_phrase_pattern( current_phrase_pattern ):
-    for index in range( 0, phrase_pattern_number ):
-      if phrase_pattern[ index ] != current_phrase_pattern[ index ]:
-        return False
-    return True
+    return ( current_phrase_pattern == phrase_pattern )
   
   current_phrase_pattern = [ None ] * phrase_pattern_number
   
