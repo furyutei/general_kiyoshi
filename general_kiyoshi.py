@@ -6,11 +6,11 @@ from __future__ import unicode_literals
 import random
 import collections
 
-def general_kiyoshi( phrase_pattern, last_phrase ):
+def general_kiyoshi( phrase_pattern, last_phrase, debug = False ):
   phrase_pattern = collections.deque( phrase_pattern )
-  phrase_pattern_number = len( phrase_pattern )
-  phrase_dict = dict( zip( phrase_pattern, [ 0 ] * phrase_pattern_number ) )
-  phrases = phrase_dict.keys()
+  phrases = list( set( phrase_pattern ) )
+  if debug:
+    phrase_dict = dict( zip( phrases, [ 0 ] * len( phrases ) ) )
   
   def random_phrase_generator():
     while True:
@@ -19,20 +19,20 @@ def general_kiyoshi( phrase_pattern, last_phrase ):
   def check_phrase_pattern( current_phrase_pattern ):
     return ( current_phrase_pattern == phrase_pattern )
   
-  current_phrase_pattern = collections.deque( [], phrase_pattern_number )
+  current_phrase_pattern = collections.deque( [], len( phrase_pattern ) )
   
   for phrase in random_phrase_generator():
     print( phrase )
-    #phrase_dict[ phrase ] += 1
+    if debug:
+      phrase_dict[ phrase ] += 1
     
     current_phrase_pattern.append( phrase )
     
     if check_phrase_pattern( current_phrase_pattern ):
       print( last_phrase )
-      '''
-      #for phrase in phrases:
-      #  print( '{phrase} : {count}'.format( phrase = phrase, count = phrase_dict[ phrase ] ) )
-      '''
+      if debug:
+        for phrase in phrases:
+          print( '{phrase} : {count}'.format( phrase = phrase, count = phrase_dict[ phrase ] ) )
       break
 
 if __name__ == '__main__':
