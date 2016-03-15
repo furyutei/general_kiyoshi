@@ -9,6 +9,7 @@ import collections
 def general_kiyoshi( phrase_pattern, last_phrase, debug = False ):
   phrase_pattern = collections.deque( phrase_pattern )
   phrases = list( set( phrase_pattern ) )
+  current_phrase_pattern = collections.deque( [], len( phrase_pattern ) )
   if debug:
     phrase_dict = dict( zip( phrases, [ 0 ] * len( phrases ) ) )
   
@@ -16,10 +17,8 @@ def general_kiyoshi( phrase_pattern, last_phrase, debug = False ):
     while True:
       yield random.choice( phrases )
   
-  def check_phrase_pattern( current_phrase_pattern ):
+  def check_phrase_pattern():
     return ( current_phrase_pattern == phrase_pattern )
-  
-  current_phrase_pattern = collections.deque( [], len( phrase_pattern ) )
   
   for phrase in random_phrase_generator():
     print( phrase )
@@ -28,12 +27,14 @@ def general_kiyoshi( phrase_pattern, last_phrase, debug = False ):
     
     current_phrase_pattern.append( phrase )
     
-    if check_phrase_pattern( current_phrase_pattern ):
-      print( last_phrase )
-      if debug:
-        for phrase in phrases:
-          print( '{phrase} : {count}'.format( phrase = phrase, count = phrase_dict[ phrase ] ) )
+    if check_phrase_pattern():
       break
+  
+  print( last_phrase )
+  if debug:
+    for phrase in phrases:
+      print( '{phrase} : {count}'.format( phrase = phrase, count = phrase_dict[ phrase ] ) )
+
 
 if __name__ == '__main__':
   def kiyoshi():
