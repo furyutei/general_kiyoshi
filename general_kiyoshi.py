@@ -14,6 +14,9 @@ def general_kiyoshi( phrase_pattern, last_phrase, debug = False ):
     phrase_dict = dict( zip( phrases, [ 0 ] * len( phrases ) ) )
   
   def random_phrase_generator():
+    if len( phrases ) <= 0:
+      return
+    
     while True:
       yield random.choice( phrases )
   
