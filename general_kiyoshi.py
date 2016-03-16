@@ -24,7 +24,8 @@ def general_kiyoshi( phrase_pattern, last_phrase, debug = False ):
     return ( current_phrase_pattern == phrase_pattern )
   
   for phrase in random_phrase_generator():
-    print( phrase )
+    yield phrase
+    
     if debug:
       phrase_dict[ phrase ] += 1
     
@@ -33,7 +34,8 @@ def general_kiyoshi( phrase_pattern, last_phrase, debug = False ):
     if check_phrase_pattern():
       break
   
-  print( last_phrase )
+  yield last_phrase
+  
   if debug:
     for phrase in phrases:
       print( '{phrase} : {count}'.format( phrase = phrase, count = phrase_dict[ phrase ] ) )
@@ -41,10 +43,12 @@ def general_kiyoshi( phrase_pattern, last_phrase, debug = False ):
 
 if __name__ == '__main__':
   def kiyoshi():
-    general_kiyoshi( [ 'ズン', 'ズン', 'ズン', 'ズン', 'ドコ' ], 'キ・ヨ・シ！' )
+    for phrase in general_kiyoshi( [ 'ズン', 'ズン', 'ズン', 'ズン', 'ドコ' ], 'キ・ヨ・シ！' ):
+      print( phrase )
   
   def cockrobin():
-    general_kiyoshi( [ 'パパンがパン', '誰が殺した', 'クックロビン', '誰が殺した', 'クックロビン' ], 'スズメが弓と矢でもって、クックロビンを殺したの' )
+    for phrase in general_kiyoshi( [ 'パパンがパン', '誰が殺した', 'クックロビン', '誰が殺した', 'クックロビン' ], 'スズメが弓と矢でもって、クックロビンを殺したの' ):
+      print( phrase )
   
   print( '■ kiyoshi()' )
   kiyoshi()
